@@ -1,7 +1,9 @@
-name: Build and Upload Combined ZIP
+name: Build and Upload ZIP
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:        # Manual trigger
+  release:
+    types: [created]       # Trigger on release creation
 
 jobs:
   build:
@@ -17,14 +19,24 @@ jobs:
       # 2. Create combined ZIP
       - name: Create combined ZIP
         run: |
-          mkdir plugin_zip
-          rsync -av --exclude='plugin_zip' ./ ./plugin_zip/
-          cd plugin_zip
+          mkdir combined
+          rsync -av --exclude='combined' ./ ./combined/
+          cd combined
           zip -r ../Giswater_all.zip .
 
-      # 3. Upload ZIP as artifact
+      # 3. Upload ZIP as artifact (for manual runs)
       - name: Upload ZIP artifact
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
           name: Giswater_all
           path: Giswater_all.zip
+
+      # 4. Upload ZIP to release (for release triggers)
+      - name: Upload ZIP to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Giswater_all.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
