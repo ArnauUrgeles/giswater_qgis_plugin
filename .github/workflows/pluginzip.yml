@@ -19,9 +19,9 @@ jobs:
       # 2. Create combined ZIP
       - name: Create combined ZIP
         run: |
-          mkdir combined
-          cp -r . combined/
-          cd combined
+          mkdir plugin_zip
+          rsync -av --exclude='plugin_zip' ./ ./plugin_zip/
+          cd plugin_zip
           zip -r ../repo_with_submodules.zip .
 
       # 3. Upload ZIP as artifact
