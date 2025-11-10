@@ -1,0 +1,32 @@
+name: Build and Upload Combined ZIP
+
+on:
+  push:
+    branches:
+      - feature/zip-ci
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clone repo with submodules
+      - name: Checkout repo with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # 2. Create combined ZIP
+      - name: Create combined ZIP
+        run: |
+          mkdir combined
+          cp -r . combined/
+          cd combined
+          zip -r ../repo_with_submodules.zip .
+
+      # 3. Upload ZIP as artifact
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo_with_submodules
+          path: repo_with_submodules.zip
