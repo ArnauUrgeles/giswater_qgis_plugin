@@ -21,12 +21,12 @@ jobs:
           mkdir combined
           rsync -av --exclude='combined' ./ ./combined/
           cd combined
-          zip -r "../Source code (all).zip" .
+          zip -r ../source_code_with_submodules.zip .
 
       # 3. Subir ZIP como asset de la release
       - name: Upload ZIP to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: "Source code (all).zip"
+          files: source_code_with_submodules.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
