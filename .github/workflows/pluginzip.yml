@@ -20,11 +20,11 @@ jobs:
           mkdir plugin_zip
           rsync -av --exclude='plugin_zip' ./ ./plugin_zip/
           cd plugin_zip
-          zip -r ../repo_with_submodules.zip .
+          zip -r ../Giswater_all.zip .
 
       # 3. Upload ZIP as artifact
       - name: Upload ZIP artifact
         uses: actions/upload-artifact@v4
         with:
-          name: repo_with_submodules
-          path: repo_with_submodules.zip
+          name: Giswater_all
+          path: Giswater_all.zip
