@@ -3,7 +3,11 @@ name: Build and Upload ZIP
 on:
   workflow_dispatch:        # Manual trigger
   release:
-    types: [created]       # Trigger on release creation
+    types:
+      - created       # Trigger on release creation
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -26,7 +30,7 @@ jobs:
 
       # 3. Upload ZIP as artifact (for manual runs)
       - name: Upload ZIP artifact
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: Giswater_all
