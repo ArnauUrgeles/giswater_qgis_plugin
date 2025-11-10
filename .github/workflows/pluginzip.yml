@@ -1,6 +1,7 @@
 name: Build and Upload Combined ZIP
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - feature/zip-ci
