@@ -26,11 +26,14 @@ jobs:
       # 2. Create combined ZIP
       - name: Create combined ZIP
         run: |
-          zip -r giswater.zip ./*
+          mkdir giswater_folder
+          rsync -av --exclude='giswater_folder' ./ ./giswater_folder/
+          cd giswater_folder
+          zip -r ../giswater.zip .
 
-      # 3. Upload ZIP as artifact (for manual/push runs)
+      # 3. Upload ZIP as artifact (for manual runs)
       - name: Upload ZIP artifact
-        if: github.event_name != 'release'
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: giswater
