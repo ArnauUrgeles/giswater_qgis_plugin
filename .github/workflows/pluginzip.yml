@@ -1,4 +1,4 @@
-name: Build and Upload ZIP
+name: Build and Upload Plugin
 
 on:
   # Manual trigger
@@ -24,14 +24,14 @@ jobs:
           submodules: recursive
           path: ./giswater
 
-      # 2. Create combined ZIP
-      - name: Create combined ZIP
+      # 2. Create ZIP
+      - name: Create ZIP
         if: github.event_name == 'release'
         run: |
           zip -r giswater.zip .
 
-      # 3. Upload ZIP as artifact (for manual runs)
-      - name: Upload ZIP artifact
+      # 3. Upload plugin as artifact (for manual runs)
+      - name: Upload plugin artifact
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
@@ -39,8 +39,8 @@ jobs:
           path: "."
           include-hidden-files: true
 
-      # 4. Upload ZIP to release (for release triggers)
-      - name: Upload ZIP to GitHub Release
+      # 4. Upload ZIP plugin to release (for release triggers)
+      - name: Upload ZIP plugin to GitHub Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
