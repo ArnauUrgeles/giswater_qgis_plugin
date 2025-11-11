@@ -1,10 +1,13 @@
 name: Build and Upload ZIP
 
 on:
-  workflow_dispatch:        # Manual trigger
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger on release creation
   release:
     types:
-      - created       # Trigger on release creation
+      - created
+  # Trigger on push to master branch
   push:
     branches:
       - master
