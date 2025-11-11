@@ -26,10 +26,8 @@ jobs:
       # 2. Create combined ZIP
       - name: Create combined ZIP
         run: |
-          mkdir giswater_folder
-          rsync -av --exclude='giswater_folder' ./ ./giswater_folder/
-          cd giswater_folder
-          zip -r ../giswater.zip .
+          cd ..
+          zip -r giswater.zip giswater
 
       # 3. Upload ZIP as artifact (for manual runs)
       - name: Upload ZIP artifact
