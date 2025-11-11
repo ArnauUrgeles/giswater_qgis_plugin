@@ -26,7 +26,7 @@ jobs:
       # 2. Create combined ZIP
       - name: Create combined ZIP
         run: |
-          zip -r giswater.zip . -x "giswater.zip"
+          zip -r giswater.zip .
 
       # 3. Upload ZIP as artifact (for manual/push runs)
       - name: Upload ZIP artifact
