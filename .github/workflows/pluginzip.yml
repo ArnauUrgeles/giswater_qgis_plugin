@@ -22,13 +22,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          path: ./giswater
 
       # 2. Create combined ZIP
       - name: Create combined ZIP
         run: |
-          mkdir giswater
-          mv ./* giswater/
-          zip -r giswater.zip .
+          zip -r giswater.zip ./giswater
 
       # 3. Upload ZIP as artifact (for manual runs)
       - name: Upload ZIP artifact
