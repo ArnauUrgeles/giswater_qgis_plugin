@@ -26,8 +26,8 @@ jobs:
 
       # 2. Create combined ZIP
       - name: Create combined ZIP
+        if: github.event_name == 'release'
         run: |
-          
           zip -r giswater.zip .
 
       # 3. Upload ZIP as artifact (for manual runs)
@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: giswater
-          path: "giswater"
+          path: "."
           include-hidden-files: true
 
       # 4. Upload ZIP to release (for release triggers)
